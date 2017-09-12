@@ -13,25 +13,50 @@ npm install swaggerbank
 
 <h1> Usage </h1>
 
+Single Yaml file:
+
 ```javascript
 
 const SwaggerBank = require('swaggerbank');
+
+// The file path or swagger object of the swagger spec that will be used
 const api = new SwaggerBank.API('./demoApi.yaml');
 
 api.validateAPI()
 .then( () => {
 	api.setupMountebankImposter(3000);
 })
+```
 
+One or more spec objects:
+
+```javascript
+const SwaggerBank = require('swaggerbank');
+const apiSpec = {}
+
+// The file path or swagger object of the swagger spec that will be used
+const api = new SwaggerBank.API(apiSpec)
+
+// assuming we have a set of service objects, each with a .docs object
+// ie. such as using feathers services with docs: https://github.com/feathersjs/feathers-swagger
+
+for (let service of services) {
+  api.add(service.docs);
+}
+
+api.validateAPI()
+.then( () => {
+	api.setupMountebankImposter(3000);
+})
 ```
 
 To see this in action right now:
 
 ````bash
-git clone https://github.com/Tzinov15/SwaggerBank.git   
-cd SwaggerBank    
-npm install   
-node demo/full.demo.js  # from the root of the project. 
+git clone https://github.com/Tzinov15/SwaggerBank.git
+cd SwaggerBank
+npm install
+node demo/full.demo.js  # from the root of the project.
 ````
 
 Now navigate to [`localhost:3000/v1/areas`](http://localhost:3000/v1/areas) to see a mocked route in action! This mocked API is

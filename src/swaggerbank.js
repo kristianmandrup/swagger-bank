@@ -9,6 +9,7 @@ const mountebankHelper = require('mountebank-helper');
 
 const urlManager = require('./urlManager');
 const responseManager = require('./responseManager');
+const extend = require('extend');
 
 /**
  * Helper function that should probably be put into a separate file. Pretty self explanatory behavior
@@ -30,7 +31,7 @@ class API {
    * @param  {String|Object} spec  The file path or swagger object of the swagger spec that will be used
    * @return {Object }         Returns an instance of the API class
    */
-  constructor(spec) {
+  constructor(spec = {}) {
     if (!(_.isString(spec) || _.isObject(spec))) {
       throw new TypeError(`spec must be a string or object, was ${typeof spec}`);
     }
@@ -40,6 +41,11 @@ class API {
     this.objectTemplateHash = {};
     this.parser = new SwaggerParser();
     this.propertyGenerationSetting = process.env.PROP_GEN;
+  }
+
+  add(spec) {
+    extend(this.spec, spec)
+    return this
   }
 
   /**

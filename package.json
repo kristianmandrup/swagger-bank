@@ -36,6 +36,7 @@
     "btoa": "1.1.2",
     "chance": "^1.0.3",
     "colors": "^1.1.2",
+    "extend": "^3.0.1",
     "lodash": "^4.13.1",
     "moment": "2.17.1",
     "mountebank-helper": "^1.2.1",
